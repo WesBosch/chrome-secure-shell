@@ -154,16 +154,6 @@ function Type(str) {
   }
 }
 function StartCustom() {
-  // intercept typing
-  /*let onVTKeystroke_old = this.io.onVTKeystroke;
-  this.io.onVTKeystroke = function() {
-      let result = onVTKeystroke_old.apply(this, arguments);
-      //alert(new Error().stack);
-      //alert("SendString:" + JSON.stringify(arguments));
-      return result;
-  };*/
-
-  // intercept printing
   let print_old = croshInstance.io.print;
   croshInstance.io.print = function(text) {
       let result = print_old.apply(this, arguments);
@@ -172,11 +162,11 @@ function StartCustom() {
   };
 
   Type(`shell\r`);
-  Type(`sudo edit-chroot -a\r`);
+  Type(`cat /usr/local/bin/brunch-toolkit-assets/shell-tools.btst\r`);
   setTimeout(()=> {
     //let outputLines = window.outputText.substr(window.outputText.indexOf("crosh>")).replace(/\r/g, "").split("\n\n");
-    let outputLines = window.outputText.replace(/\r/g, "").split("\n");
-    let chroots = outputLines[3].split(" "); // "chroot1 chroot2" -> ["chroot1", "chroot2"]
+    let outputLines = window.outputText.replace(/\r/g, "").split(/\r?\n/);
+    let chroots = outputLines[3].split(","); // "chroot1,chroot2" -> ["chroot1", "chroot2"]
     RefreshUI(chroots);
   }, 500);
 }
@@ -185,27 +175,28 @@ function RefreshUI(chroots) {
   var toolbar = document.createElement("div");
   toolbar.id = "toolbar";
   Object.assign(toolbar.style, {position: "absolute", left: 0, top: 0, right: 0});
-  toolbar.style.height = "30px";
-  toolbar.style.backgroundColor = "rgba(255,255,255,.3)";
+  toolbar.style.height = "22px";
+  toolbar.style.backgroundColor = "rgba(25,25,25,.9)";
   //document.querySelector("iframe").contentDocument.body.prepend(toolbar);
   document.querySelector("#terminal").prepend(toolbar);
 
   //document.querySelector("iframe").contentDocument.getElementById("hterm:row-nodes").style.marginTop = "30px";
-  document.querySelector("iframe").style.top = "30px";
-  document.querySelector("iframe").style.height = "calc(100% - 30px)";
+  document.querySelector("iframe").style.top = "22px";
+  document.querySelector("iframe").style.height = "calc(100% - 22px)";
 
   for (let chroot of chroots) {
     var button = document.createElement("button");
-    button.innerText = "Start " + chroot;
+    button.style.backgroundColor = "rgba(25,25,25,.7)";
+    button.innerText = chroot;
+    button.style.color = "rgba(255,255,255,.9)";
     button.onclick = ()=> {
-      //Type("sudo enter-chroot -n " + chroot + "\r");
-      // we don't know what target the chroot has, so just try all three
-      Type("sudo starte17 -n " + chroot + "\r");
-      Type("sudo startkde -n " + chroot + "\r");
-      Type("sudo startxfce4 -n " + chroot + "\r");
+      Type(chroot + "\r");
     };
     toolbar.appendChild(button);
   }
+    
+  Type(`exit\r`);
+  Type(`shell\r`);
 }
 
 Crosh.prototype.onBeforeUnload_ = function(e) {
