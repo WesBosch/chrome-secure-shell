@@ -10,7 +10,7 @@
    },
    "content_security_policy": "script-src 'self'; object-src 'self'",
    "default_locale": "en",
-   "description": "Terminal emulator and SSH client.",
+   "description": "Brunch Terminal and SSH client.",
    "file_system_provider_capabilities": {
       "configurable": false,
       "multiple_mounts": true,
@@ -19,19 +19,22 @@
    "icons": {
       "128": "images/stable/icon-128.png",
       "16": "images/stable/icon-16.png",
-      "32": "images/stable/icon-32.png"
+      "24": "images/stable/icon-24.png",
+      "32": "images/stable/icon-32.png",
+      "48": "images/stable/icon-48.png",
+      "512": "images/stable/icon-512.png"
    },
    "key": "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDZCwLaKu+2OIwztgyHw3pNGbOTokLV2Kb4MGnZGnxKTozx87Wf7aQZWzBtGBi4iys1HE5BTsuOY8jFNfuChncl/bzIGT4J6J0FjxpF+gv9czMVyb6o+4VK9fB5BgL+arlZsuS07rylTLPimN1LzVMi/v1F3IcqgXXnsQvdIxoXFQIDAQAB",
    "manifest_version": 2,
-   "minimum_chrome_version": "57",
-   "name": "Secure Shell",
+   "minimum_chrome_version": "80",
+   "name": "Brunch Shell",
    "offline_enabled": true,
    "omnibox": {
-      "keyword": "ssh"
+      "keyword": "brunch"
    },
    "options_page": "html/nassh_preferences_editor.html",
    "permissions": [ "clipboardRead", "clipboardWrite", "notifications", "storage", "terminalPrivate", "unlimitedStorage", "fileSystemProvider" ],
    "update_url": "https://clients2.google.com/service/update2/crx",
-   "version": "0.8.39",
+   "version": "0.1",
    "web_accessible_resources": [ "html/crosh.html", "html/nassh.html", "html/nassh_google_relay.html", "html/nassh_connect_dialog.html" ]
 }
